@@ -7,4 +7,5 @@
 
 .app_body {
     display: flex;
+    padding: 20px;
 }
