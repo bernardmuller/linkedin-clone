@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './Header.css';
 import HeaderOption from './HeaderOption';
 
@@ -16,11 +16,11 @@ function Header() {
     return (
         <div className="header">
             <div className="header_left">
-                <img src="https://www.flaticon.com/svg/vstatic/svg/174/174857.svg?token=exp=1618076410~hmac=eaf2374de80b2824bdd3bbeed13b1c32" alt=""/>
+                <img src="https://image.flaticon.com/icons/png/512/174/174857.png" alt=""/>
 
                 <div className="header_search">
                     <SearchRoundedIcon />
-                    <input type="text"/>
+                    <input placeholder="Search" type="text"/>
                 </div>
 
             </div>
