@@ -1,6 +1,9 @@
 import React from 'react';
 import './Header.css';
 import HeaderOption from './HeaderOption';
+import { useDispatch } from 'react-redux';
+import { auth } from './firebase';
+
 
 // Icons
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
@@ -10,9 +13,17 @@ import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded'
 import ChatBubbleRoundedIcon from '@material-ui/icons/ChatBubbleRounded';
 import NotificationsRoundedIcon from '@material-ui/icons/NotificationsRounded';
 import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
+import { logout } from './features/userSlice';
 
 
 function Header() {
+    const dispatch = useDispatch();
+    
+    const logoutOfApp = () => {
+        dispatch(logout());
+        auth.signOut();
+    }
+
     return (
         <div className="header">
             <div className="header_left">
@@ -30,7 +41,7 @@ function Header() {
                 <HeaderOption title="Jobs" Icon={BusinessCenterRoundedIcon} />
                 <HeaderOption title="Messaging" Icon={ChatBubbleRoundedIcon} />
                 <HeaderOption title="Notifications" Icon={NotificationsRoundedIcon} />
-                <HeaderOption title="Me" Icon={AccountBoxRoundedIcon} />
+                <HeaderOption title="Me" Icon={AccountBoxRoundedIcon} onClick={logoutOfApp} />
             </div>
         </div>
     )

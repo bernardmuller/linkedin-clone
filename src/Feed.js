@@ -13,11 +13,15 @@ import ImageIcon from '@material-ui/icons/Image';
 import SubscriptionsIcon from '@material-ui/icons/Subscriptions';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+import { useSelector } from 'react-redux';
+import { selectUser } from './features/userSlice';
 
 
 function Feed() {
     const [input, setInput] = useState("");
     const [posts, setPosts] = useState([]);
+
+    const user = useSelector(selectUser);
 
     useEffect(() => {
         db.collection("posts")
@@ -38,8 +42,8 @@ function Feed() {
         e.preventDefault();
 
         db.collection('posts').add({
-            name: 'Bernard',
-            description: 'TEST',
+            name: user.displayName,
+            description: user.email,
             message: input,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         })        
@@ -52,9 +56,17 @@ function Feed() {
             <div className="feed_inputContainer">
                 <div className="feed_input">
                     <CreateIcon />
-                    <form action="">
-                        <input value={input} onChange={e => setInput(e.target.value)} type="text"/>
-                        <button onClick={sendPost} type="submit">Send</button>
+                    <form>
+                    
+                        <input 
+                        value={input} 
+                        onChange={e => setInput(e.target.value)} 
+                        type="text"
+                        />                        
+                        <button 
+                        onClick={sendPost} 
+                        type="submit"
+                        >Send</button>
                     </form>
                 </div>
                 <div className="feed_inputOption">

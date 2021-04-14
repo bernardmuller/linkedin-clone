@@ -1,4 +1,6 @@
-import React, {useState, useDispatch} from 'react'
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { login } from './features/userSlice'
 import { auth } from './firebase';
 import './Login.css'
 
@@ -7,6 +9,18 @@ function Login() {
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
     const dispatch = useDispatch();
+
+    const loginToApp = (e) =>{
+        e.preventDefault();
+        auth.signInWithEmailAndPassword(email, password)
+        .then(userAuth => {
+            dispatch(login({
+                email: userAuth.user.email,
+                uid: userAuth.user.uid,
+                displayName: userAuth.user.displayName,
+            }));
+        }).catch(error => alert(error))
+    };
 
     const register = () =>{
         if(!name) {
@@ -28,10 +42,7 @@ function Login() {
             })
         }).catch(error => alert(error));
     };
-
-    const loginToApp = (e) =>{
-        e.preventDefault();
-    };
+   
 
     return (
         <div className="login">            
@@ -40,21 +51,21 @@ function Login() {
             <form action="">
                 <input 
                 value={name}
-                onChange={e => setName(e.target.value)} 
+                onChange={(e) => setName(e.target.value)} 
                 placeholder="Full name (required if registering)" 
                 type="text"
                 />
                
                 <input 
                 value={email} 
-                onChange={e => setEmail(e.target.value)} 
+                onChange={(e) => setEmail(e.target.value)} 
                 placeholder="email" 
                 type="email"
                 />
 
                 <input 
                 value={password} 
-                onChange={e => setPassword(e.target.value)} 
+                onChange={(e) => setPassword(e.target.value)} 
                 placeholder="Password" 
                 type="password"
                 />
@@ -69,139 +80,4 @@ function Login() {
     )
 }
 
-export default Login
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default Login;
