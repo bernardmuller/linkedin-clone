@@ -12,7 +12,7 @@ import { auth } from './firebase';
 
 
 function App() {
-  const user = useSelector(selectUser)
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
 
@@ -50,3 +50,19 @@ function App() {
 }
 
 export default App;
+
+
+
+var twoSum = function(nums, target) {
+  const newNums = [];
+  nums.forEach(num => {
+      if (num < target) {
+          newNums.push(num)            
+      };
+      const div = target - num;
+      newNums.forEach(num => {
+       if (num === div) {
+           return [num, div]
+       }
+  })});  
+};
